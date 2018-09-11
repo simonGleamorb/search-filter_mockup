@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+   <html>
+   <head>
+       <title>SEARCH MOCKUP</title>
+        <meta charset="utf-8">
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+        
+    </head>
+
+
+    <style type="text/css">
+       .video-container {
+			position: relative;
+			padding-bottom: 56.25%;
+			padding-top: 30px;
+			height: 0;
+			overflow: hidden;
+		}
+
+		.video-container iframe,  
+		.video-container object,  
+		.video-container embed {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+
+		tr{
+			cursor: pointer;
+		}
+		tr:hover{
+			background-color: #007bff80;
+		}
+    </style>
+
+<body>
+
+    <header style="padding: 30px 0;border-bottom:solid 1px #a5a5a5; text-align: center; margin-bottom: 80px;"><a href="./../" style="color:#a5a5a5;">SEARCH FILTER MOCKUP</a></header>
+
+    <div class="content container">
+
+        <div class="container mb-3">
+              <div class="row">
+                <div class="col-sm-8">
+                	
+					<div class="video-container">
+						 <iframe id="iframe" width="800" height="450" src="https://www.youtube.com/embed/cdOlXvQLhno?autoplay=1" frameborder="0"></iframe>
+					</div>
+					
+                </div>
+                <div class="col-sm-4">
+                    <table class="table">
+                    	<thead style="background-color: rgba(0,123,255,.5);">
+                    		<tr>
+                    			<th>TITLE</th>
+                    			<th>NAME</th>
+                    			<th>DURATION</th>
+                    		</tr>
+                    	</thead>
+                    	<tbody>
+                    		<tr data-url="https://www.youtube.com/embed/cdOlXvQLhno?autoplay=1" onclick="getUrl(this);">
+                    			<td>ゴール</td>
+                    			<td>Marksman</td>
+                    			<td>５分</td>
+                    		</tr>
+                    		<tr data-url="https://www.youtube.com/embed/YQh8OyggSck?autoplay=1" onclick="getUrl(this);">
+                    			<td>シュート</td>
+                    			<td>Hawk</td>
+                    			<td>５分</td>
+                    		</tr>
+                    		<tr data-url="https://www.youtube.com/embed/T0v5LKdt_20?autoplay=1" onclick="getUrl(this);">
+                    			<td>パス</td>
+                    			<td>Marksman</td>
+                    			<td>５分</td>
+                    		</tr>
+                    	</tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-container" style="text-align: center;margin: 40px auto;"><a role="button" class="btn btn-primary" href="./../" style=" padding: 5px 60px;position: relative;"><span style="position: absolute;top:50%;transform: translateY(-50%);left:20px;"><</span> 戻る</a></div>
+    </div>
+
+    <footer style="padding: 30px 0;border-top:solid 1px #a5a5a5; text-align: center; margin-top: 80px;color:#a5a5a5;">Made by Simon</footer>
+   
+
+
+
+
+    <script type="text/javascript">
+    	function getUrl(e){
+    		var video_url = e.getAttribute("data-url");
+		   	document.getElementById("iframe").setAttribute("src", video_url);;
+		}
+    </script>
+
+  
+</body>
+
+</html> 

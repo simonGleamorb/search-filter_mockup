@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+   <html>
+   <head>
+       <title>Search MOCKUP</title>
+        <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    </head>
+
+
+    <style type="text/css">
+        #iframe-container, #iframe-container a{
+            position: fixed;
+            top:0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        #iframe-container iframe{
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+        }
+
+    </style>
+
+<body ng-app="football" ng-controller="MainCtrl">
+
+    <header style="padding: 30px 0;border-bottom:solid 1px #a5a5a5; text-align: center; margin-bottom: 80px;"><a href="./" style="color:#a5a5a5;">SEARCH FILTER MOCKUP</a></header>
+
+    <div class="content container">
+        <div class="options_container">
+     
+            <div class="container mb-3">
+              <div class="row">
+                <div class="col-sm-4">
+                   <p>チーム</p>
+                </div>
+                <div class="col-sm-8">
+                    <label ng-repeat="option in options" class="option btn btn-light" id="option" style="margin-left: 10px;border: 1px solid #000;padding: 5px 10px;">
+                    <input type="checkbox" class="check" ng-model="option.selected" hidden><span>{{option.name | uppercase}}</span>
+                    </label>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="container mb-3">
+              <div class="row">
+                <div class="col-sm-4">
+                   <p>試合</p>
+                </div>
+                <div class="col-sm-8">
+                <label class="option btn btn-light" style="margin-left: 10px;border: 1px solid #000;padding: 5px 10px;"><input type="checkbox" class="check"  hidden><span>今年全試合 </span></label>
+                <label class="option btn btn-light" style="margin-left: 10px;border: 1px solid #000;padding: 5px 10px;"><input type="checkbox" class="check"  hidden><span>直近1試合</span></label>
+                <label class="option btn btn-light" style="margin-left: 10px;border: 1px solid #000;padding: 5px 10px;"><input type="checkbox" class="check"  hidden><span>直近3試合</span></label>
+                 <label class="option btn btn-light" style="margin-left: 10px;border: 1px solid #000;padding: 5px 10px;"><input type="checkbox" class="check"  hidden><span>直近5試合</span></label>
+                <label class="option btn btn-light" id="selectMatch" data-toggle="modal" data-target="#exampleModal" style="margin-left: 10px;border: 1px solid #000;padding: 5px 10px;"><input type="checkbox" class="check"  hidden><span>試合選択</span></label>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document" style="max-width: 90%;">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <div class="btn-container" style="width: 50%;display: inline-block;">
+                      <button class="btn btn-primary">SELECT ALL</button>
+                      <button class="btn btn-primary">UNSELECT ALL</button>
+                    </div>
+                    <input type="text" placeholder="Search 選手.." class="form-control">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <table class="cards table" id="cards" style="text-align: center;margin-top: 50px;max-width: 90%;">
+                      <thead style="background-color: rgba(0,123,255,.5);">
+                          <tr>
+                              <th>Selection</th>
+                              <th ng-click="setOrderProperty('name')">NAME</th>
+                              <th ng-click="setOrderProperty('date')">DATE</th>
+                              <th>HOME</th>
+                              <th>SCORE</th>
+                              <th>CHALLENGER</th>
+                              <th>STADIUM</th>
+                          </tr>
+                      </thead>
+
+                      <tbody>
+                          <tr ng-repeat="card in cards | filter:itemFilter | orderBy:orderProperty | limitTo : 3" class="card_background"">
+                              <td><input type="checkbox" data-id="{{card.ref}}"></td>
+                              <td class="card_title link">{{card.name | uppercase}}</td>
+                               <td class="card_title ">{{card.date | uppercase}}</td> 
+                               <td class="card_title">{{card.home | uppercase}}</td>
+                               <td class="card_title">{{card.score | uppercase}}</td>
+                               <td class="card_title">{{card.challenger | uppercase}}</td>
+                               <td class="card_title">{{card.stadium | uppercase}}</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">SUBMIT</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="container mb-3">
+              <div class="row">
+                <div class="col-sm-4">
+                   <p>攻撃</p>
+                </div>
+                <div class="col-sm-8">
+                <label ng-repeat="option02 in option2" class="option btn btn-light" id="option02" style="margin-left: 10px;border: 1px solid #000;padding: 5px 10px;">
+                    <input type="checkbox" class="check" ng-model="option02.selected" hidden><span>{{option02.name | uppercase}}</span>
+                </label>
+                </div>
+              </div>
+            </div>
+
+
+           <div class="container mb-3">
+              <div class="row">
+                <div class="col-sm-4">
+                   <p class="test">GK</p>
+                </div>
+                <div class="col-sm-8">
+                <label ng-repeat="option03 in option3" class="option btn btn-light" id="option03" style="margin-left: 10px;border: 1px solid #000;padding: 5px 10px;">
+                    <input type="checkbox" class="check" ng-model="option03.selected" hidden><span>{{option03.name | uppercase}}</span>
+                </label>
+             </div>
+              </div>
+            </div>
+
+        </div>
+
+        <table class="cards table" id="cards" style="text-align: center;margin-top: 50px;">
+            <thead style="background-color: rgba(0,123,255,.5);">
+                <tr>
+                    <th>Selection</th>
+                    <th ng-click="setOrderProperty('name')">NAME</th>
+                    <th ng-click="setOrderProperty('date')">DATE</th>
+                    <th>HOME</th>
+                    <th>SCORE</th>
+                    <th>TITLE</th>
+                    <th>DURATION</th>
+                    <th>NOW</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="card in cards | filter:itemFilter | orderBy:orderProperty" class="card_background"">
+                    <td><input type="checkbox" data-id="{{card.ref}}"></td>
+                    <td class="card_title link">{{card.name | uppercase}}</td>
+                     <td class="card_title ">{{card.date | uppercase}}</td> 
+                     <td class="card_title">{{card.home | uppercase}}</td>
+                     <td class="card_title">{{card.score | uppercase}}</td>
+                     <td class="card_title">{{card.title | uppercase}}</td>
+                     <td class="card_title">{{card.time | uppercase}}</td>
+                     <td><a href="" onclick="iframe();">SHOW</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div class="btn-container" style="text-align: center;margin: 40px auto;"><a role="button" class="btn btn-primary" href="./results" id="submitVideo">SEE SELECTION</a></div>
+    </div>
+
+    <footer style="padding: 30px 0;border-top:solid 1px #a5a5a5; text-align: center; margin-top: 80px;color:#a5a5a5;">Made by Simon</footer>
+   
+
+    
+    <script type="text/javascript" src="./football.js"></script>
+
+  
+</body>
+
+</html> 
